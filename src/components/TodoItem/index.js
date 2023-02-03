@@ -14,7 +14,9 @@ const TodoItem = ({ eachTodo }) => {
     const [todoItem, setTodoItem] = useState(todo)
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        setShow(true);
+    }
 
     const dispatch = useDispatch();
 
@@ -29,7 +31,6 @@ const TodoItem = ({ eachTodo }) => {
     const onSaveChanges = () => {
         setTodoItem(inputitem)
         setShow(false)
-        // dispatch(addTodos({ todo: todoItem, isChecked: isChecked, id: id }))
     }
 
     const onChangeCheckbox = (event) => {

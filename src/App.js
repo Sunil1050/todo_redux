@@ -1,13 +1,16 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTodos } from './redux/actions/todoActions'
 import { v4 as uuidv4 } from 'uuid';
 import TodoItem from "./components/TodoItem";
 import './App.css'
 
+localStorage.setItem("todoList", JSON.stringify([]));
+
 const App = () => {
   const [userInput, setUserInput] = useState("")
-  const todos = useSelector((state) => state.allTodos.todos);
+  const globalState = useSelector((state) => state.allTodos)
+  console.log("Iam at" , globalState)
   const dispatch = useDispatch();
 
   const onAdd = () => {
@@ -31,11 +34,67 @@ const App = () => {
         My <span className="todo-items-heading-subpart">Tasks</span>
       </h1>
       <ul class="todo-items-container" type="none" id="todoItemsContainer">
-        {todos.map(item => {
+        { globalState.todos.map(item => {
           return <TodoItem key={item.id} eachTodo={item} />
         })}
       </ul>
+      {/* <div className="mt-4">
+        <button type="button" className="btn btn-info mr-2" onClick={onSave}>Save</button>
+        <button type="button" className="btn btn-secondary">Clear</button>
+      </div> */}
     </div>
   )
 }
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
