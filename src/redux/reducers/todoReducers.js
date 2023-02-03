@@ -1,6 +1,6 @@
 import { ActionTypes } from "../constants/action-types";
 const intialState = {
-  todos: [],
+  todos: []
 };
 
 export const todosReducer = (state = intialState, { type, payload }) => {
@@ -9,6 +9,8 @@ export const todosReducer = (state = intialState, { type, payload }) => {
       return { ...state, todos: [...state.todos, payload]};
     case ActionTypes.DELETE_TODO:
       return {...state, todos: state.todos.filter(item => item.id !== payload)}
+    case ActionTypes.EDIT_TODO:
+      return {...state, todos: payload}
     case ActionTypes.COMPLETE_TODO:
       return {...state, todos: state.todos.map(item => {
         if (item.id === payload.id) {

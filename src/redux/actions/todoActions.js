@@ -7,6 +7,13 @@ export const addTodos = (todos) => {
   };
 };
 
+export const editTodo = (todo) => {
+  return {
+    type: ActionTypes.EDIT_TODO,
+    payload: todo,
+  };
+}
+
 export const deleteTodo = (todo) => {
   return {
     type: ActionTypes.DELETE_TODO,
@@ -20,3 +27,4 @@ export const completeTodo = (boolean, id) => {
     payload: {checkedStatus: boolean, id},
   };
 }
+

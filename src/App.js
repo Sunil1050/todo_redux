@@ -1,6 +1,6 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodos } from './redux/actions/todoActions'
+import { addTodos, editTodo } from './redux/actions/todoActions'
 import { v4 as uuidv4 } from 'uuid';
 import TodoItem from "./components/TodoItem";
 import './App.css'
@@ -10,14 +10,29 @@ localStorage.setItem("todoList", JSON.stringify([]));
 const App = () => {
   const [userInput, setUserInput] = useState("")
   const globalState = useSelector((state) => state.allTodos)
-  console.log("Iam at" , globalState)
   const dispatch = useDispatch();
 
   const onAdd = () => {
-    dispatch(addTodos({ todo: userInput, isChecked: false, id: uuidv4() }))
-    setUserInput("")
+    if (userInput.length > 0) {
+      dispatch(addTodos({ todo: userInput, isChecked: false, id: uuidv4() }))
+      setUserInput("")
+    }
+    else {
+      alert("Please enter your task");
+    }
+
+
   }
 
+  const onEditTodo = (input, id) => {
+    const editedTodoList = globalState.todos.map(item => {
+      if (item.id === id) {
+        return { ...item, todo: input }
+      }
+      return item;
+    })
+    dispatch(editTodo(editedTodoList))
+  }
   const handleEvent = (event) => {
     setUserInput(event.target.value)
   }
@@ -34,8 +49,8 @@ const App = () => {
         My <span className="todo-items-heading-subpart">Tasks</span>
       </h1>
       <ul class="todo-items-container" type="none" id="todoItemsContainer">
-        { globalState.todos.map(item => {
-          return <TodoItem key={item.id} eachTodo={item} />
+        {globalState.todos.map(item => {
+          return <TodoItem key={item.id} eachTodo={item} onEditTodo={onEditTodo} />
         })}
       </ul>
       {/* <div className="mt-4">
